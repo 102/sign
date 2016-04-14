@@ -32,8 +32,8 @@ class MD5(object):
         x &= 0xffffffff
         return ((x << amount) | (x >> (32 - amount))) & 0xffffffff
 
-    def md5_digest(self, message, encoding='UTF-8'):
-        message = bytearray(message, encoding=encoding)
+    def md5_digest(self, message):
+        message = bytearray(message)
         orig_bits_len = (8 * len(message)) & 0xffffffffffffffff
         message.append(0x80)
         while len(message) % 64 != 56:
@@ -58,6 +58,7 @@ class MD5(object):
         digest = sum(x << (32 * j) for j, x in enumerate(registers))
 
         return digest
+
 
     @staticmethod
     def md5_to_hex(digest):
